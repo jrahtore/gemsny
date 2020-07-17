@@ -1,0 +1,27 @@
+@media (min-width: 320px) and (max-width: 767px) {
+
+.datatooltip{width: 100%; padding: 0 20px;right: 0;}
+}
+
+
+@media (max-width: 1000px) {
+
+.listresult_table tbody tr td .stoneimg{ width: 50%; margin: 0px auto; }
+.datalimit1{ max-width: 60px; word-wrap: break-word; margin: 0px auto }
+
+}
+
+@media screen and (min-width:767px) {
+.mobigrid_hover .hoverdiv{width: 44%;top: 15%; margin-left: -22%;}
+
+}
+
+
+
+@media screen and (min-width:1260px) {
+.gridcard .quickviewbtn:hover .hoverdiv {  display: block;border-left: none; box-shadow: 17px 4px 16px rgba(0,0,0,0.15); 
+-webkit-box-shadow: 17px 4px 16px rgba(0,0,0,0.15); text-align: left; }
+.gridresultwrap li.hover_left .gridcard .quickviewbtn:hover .hoverdiv {  display: block;border-left:  solid 1px #e1e1e1; box-shadow:-11px 4px 16px rgba(0,0,0,0.15); 
+-webkit-box-shadow:-11px 4px 16px rgba(0,0,0,0.15); text-align: left; border-right: none; }
+.gridresultwrap li.hover_left .hoverdiv{ right:auto; left: -385px; }
+}

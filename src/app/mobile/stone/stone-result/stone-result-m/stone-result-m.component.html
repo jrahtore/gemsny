@@ -1,0 +1,76 @@
+
+
+<div id="desk_results_panel" #boundary>
+  <h1 class="mobile-title maketitle col-md-8 col-sm-8 col-xs-12" style="padding-bottom:0px;padding-top:5px">Sapphire Search <span class="visible-xs nocount">(<span id="total_count_mob">{{ stoneResultModel.length }}</span> Results)</span></h1>
+  <div class="whatsize col-md-4 col-sm-4 col-xs-12">
+  What size gem?
+  <a href="https://www.gemsny.com/compare-stone/" target="_blank">View our stone size tool</a>
+  </div>
+
+</div>
+
+
+<div class="filter-sort">
+  <div class="options sort-box compare-hide">
+    <i style="color: #53377a;font-size:18px" class="fa fa-sort sort-icon"></i> Sort
+    <div class="sort-options">
+      <div class="toolbar-sorter sorter">
+        <select id="sorter" class="sorter-options omniture-sorting-select-mob">
+          <option value="PLTH">Price Low to High</option>
+          <option value="PHTL">Price High to Low</option>
+          <option value="WLTH">Weight Low to High</option>
+          <option value="WHTL">Weight High to Low</option>
+        </select>
+        <a href="#" class="action sorter-action sort-asc"><span>Set Descending Direction</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="options sort-box" style="display: none;" id="result_tab_mob">
+    <i style="color: #53377a;font-size:18px" class="newsprite resulticon" aria-hidden="true"></i>Result
+  </div>
+
+
+  <div class="options filter-box compare-hide" (click)="showMFilters=!showMFilters">
+    <i style="color: #53377a;font-size:18px" class="fa fa-filter" aria-hidden="true"></i>Filters
+  </div>
+</div>
+<div id="layered-filter-block" class="block filter filtermobiview" style="" [hidden]="!showMFilters">
+  <a href="javascript:void(0);" class="backtoresult" (click)="showMFilters = false"><span>←</span> Back to Result</a>
+  <div class="filter-action-holder">
+    <div class="filter-close"><span class="close-icon"></span><span class="title">Filter By <span class="purple-text">(<span id="mob_res_count">{{ stoneResultModel.length }}</span> Results)</span></span></div>
+    <div class="filter-action-btn">
+      <div id="layered-selected-filters-block2" class="clear-filter">
+        <a class="action-clear" href="javascript:;" id="clear_all_mob" (click)="deleteAllFilterByUser()" ><span>Clear All</span></a>
+      </div>
+      <div class="apply-filter"><a id="apply" class="" href="javascript:void(0)">Apply</a></div>
+    </div>
+  </div>
+  <div class="block-content filter-content filter-titles" style="overflow:auto">
+    <div class="filter-options" id="narrow-by-list-title">
+
+      <div *ngFor="let filterC of filterArr; let i = index"
+           class="filter-options-item " [ngClass]="(i==selected)?'active':''" data-filter-for="gem" role="tablist" (click)="selectedMobile(i)">
+        <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">{{filterC.name}}<span class="arrow"></span></div>
+      </div>
+
+    </div>
+  </div>
+  <div class="block-content filter-content filter-contents">
+    <div class="filter-options" id="narrow-by-list">
+      <div class="filter-options-item gem" data-filter-for="gem">
+
+        <app-stone-filter-item *ngFor="let filterC of filterArr; let i = index" [filter]="filterC"  [filterByUserModelSub]="filterByuser" [(childPopup)]="popup" [selected]="selected" [currentItem]="i" (filterByUserModelSubChange)="addFilterByUser($event)"></app-stone-filter-item>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gridresultwrap mobi_gridresult"><ul>
+  <app-loading-spinner *ngIf="loadingResult" class="col-md-12" style="left:45%"></app-loading-spinner>
+    <app-stone-result-item *ngFor="let res of stoneResultModel"
+              [stoneResult]="res"
+              [routerLink]="[res.url]" ></app-stone-result-item>
+    </ul></div>
+<app-alert *ngIf="popup.status" [message]="popup.message" (close)="onClose()"></app-alert>

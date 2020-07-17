@@ -1,0 +1,135 @@
+/* Banner Slider Start ***/
+.banner {
+  position: relative;
+  width: 100%;
+  float: left
+}
+
+  .banner .customNavigation {
+    position: absolute;
+    right: 19px;
+    bottom: 26px;
+    width: 139px
+  }
+
+  .banner .owl-controls {
+    position: absolute;
+    right: 57px;
+    bottom: 2px
+  }
+
+  .banner .prev, .banner .next, .banner .play, .banner .stop {
+    cursor: pointer;
+    position: absolute
+  }
+
+  .banner .prev {
+    left: 0px
+  }
+
+  .banner .next {
+    right: 20px
+  }
+
+  .banner .play {
+    right: 0px
+  }
+
+  .banner .stop {
+    right: 0px
+  }
+
+  .banner .owl-controls .owl-page {
+    display: inline-block;
+    zoom: 1;
+    *display: inline; /*IE7 life-saver*/
+  }
+
+    .banner .owl-controls .owl-page span {
+      display: block;
+      background: #4b4b4b;
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      margin: 5px 4px 5px 0;
+      width: 12px;
+      height: 12px;
+    }
+
+    .banner .owl-controls .owl-page.active span, .banner .owl-controls.clickable .owl-page:hover span {
+      background: #8b5dcc;
+    }
+/* Banner Slider End ***/
+
+/* Top Product Slider Start ***/
+.topslider {
+  padding: 10px 20px;
+}
+
+  .topslider .owl-theme .owl-buttons i {
+    margin-top: 2px;
+  }
+
+  .topslider .owl-theme .owl-controls .owl-buttons div {
+    position: absolute;
+  }
+
+  .topslider .owl-theme .owl-controls .owl-buttons .owl-prev, .topslider .owl-theme .owl-controls .owl-buttons .owl-next {
+    left: -23px;
+    top: 50%;
+    margin-top: -18px;
+    width: 22px;
+    height: 37px;
+    background: url(../../../assets/images/slider2.png) 0px 0px no-repeat;
+    border: none;
+  }
+
+  .topslider .owl-theme .owl-controls .owl-buttons .owl-next {
+    left: inherit;
+    right: -25px;
+    background-position: -27px 0px;
+  }
+
+  .topslider .owl-item .item a span {
+    color: #5f5f5f;
+    font-size: 13px;
+    display: block;
+  }
+/* Top Product Slider End ***/
+
+/* Box Style ***/
+.boxstl {
+  text-align: center
+}
+
+  .boxstl .box-title {
+    font-size: 15px;
+    line-height: 24px;
+    padding: 10px;
+  }
+
+  .boxstl .box-content {
+    padding: 15px;
+    font-size: 13px;
+    line-height: 24px;
+    min-height: 330px;
+  }
+
+    .boxstl .box-content p {
+      padding-top: 10px;
+      min-height: 100px
+    }
+
+  .boxstl .sbHolder {
+    margin-bottom: 5px;
+  }
+
+  .boxstl .sbOptions {
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+  }
+
+  .boxstl .box-content select {
+    width: 100%;
+  }

@@ -1,0 +1,178 @@
+
+
+<div class="topsection">
+    <div class="container">
+        <div class="top-header">   
+            <div class="row">
+               
+                <div class="salewrap saletop_two" id="container123">
+                     <div class="viewsaletop1 salewrap2"><span id="saleDisText">20% off  Sale.</span> Code <span id="saleDisCode">GNY20</span> ends in<div class="timecount"><ul><li>0<span>Days</span></li><li>22<span>Hrs</span></li><li>22<span>Min</span></li><li>36<span>Sec</span></li></ul></div></div>
+                   <div class="viewsaletop2">
+      30-Day Returns
+      <!--a href="https://www.gemsny.com/immediate-delivery/" style="margin-top: auto;padding: 0;background: none;float: none;color:#f0ff00;text-decoration:underline;font-size: 16px;font-weight:bold">View Ready to Ship Items For Christmas</a-->
+    </div>
+
+    <div class="viewsaletop3">
+      Free Domestic Shipping
+      <!--a style="margin-top: auto;padding: 0;background: none;float: none;color:#f0ff00;font-size:16px;font-weight:bold" onclick="javascript:$('#common_popup_site_temp').modal('show');">Buy it Loose, Set it Later (CLICK HERE)</a-->
+    </div>
+
+                </div>
+
+
+                <div class="col-md-8 col-sm-8 tar hidden-1300res"><a href="https://www.gemsny.com/policy/return/" class="first">30-Day Returns</a><a href="https://www.gemsny.com/customer-services/shipping-method-charges/" class="last">Free Domestic Shipping and Returns</a> </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <!-- Mobile Navigation UI start--> 
+    <div class="mobile-menu-container" [ngClass]="isMobileMenuOpened ? 'open' : ''">
+        <div id="menu" [ngClass]="isMobileMenuOpened ? 'open' : ''">
+            <div class="abrir_menu"  (click)="onMobileMenuClick()"><span title="Menu"><i></i><i></i><i></i></span></div>
+            <div class="menu_aberto">
+                <div id="navigator">
+                    <div class="loginmobinav">
+                        <div class="loginlink">
+                            <i class="newsprite"></i> <a href="javascript:;" class="mob-login">Login/Signup</a>
+                            <div id="mob_logindiv" class="signdiv signin-myaccount"></div>
+                        </div>
+                        <div class="searchmobi">
+
+                            <div class="mobile-search">
+                                <input type="text" id="keyword" name="keyword" onkeypress="return search_gemeny(event, this.value);" value="" placeholder="Search" autocomplete="off">
+                                <a [routerLink]="['/']" class="searchiconmobi"><i class="fa fa-search"></i></a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <ul class="nav" >
+                        <li [ngClass]="isMobileSubMenuOpened?'hover active':''"><a  (click)="onMobileSubMenuClick($event)"  class="parent" >Loose Gems <span class="sprite submenuicon"></span> <i class="activearrow"></i></a>
+                            <ul >
+                                <li>
+                                    <div class="submenuHover" (click)=" onMobileMenuClick()"  >
+                                        <ul>
+                                            <li >
+                  <a  [routerLink]="['/sapphires/basic-search/.']" [queryParams]="{step:'stone'}" >Sapphires</a>
+                </li>
+                <li >
+                  <a  [routerLink]="['/ruby/basic-search/.']" [queryParams]="{step:'stone'}" >Ruby</a>
+                </li>
+                <li >
+                  <a  [routerLink]="['/emerald/basic-search/.']" [queryParams]="{step:'stone'}" >Emerald</a>
+                </li>
+               <li >
+                  <a  [routerLink]="['/alexandrite/basic-search/.']" [queryParams]="{step:'stone'}" >Alexandrite</a>
+                </li>
+                <li >
+                  <a  [routerLink]="['/tsavorite/basic-search/.']" [queryParams]="{step:'stone'}" >Tsavorite</a>
+                </li>
+                
+                                        </ul>
+                                        <ul>
+                                           <li >
+                  <a  [routerLink]="['/hessonite-garnet/basic-search/.']" [queryParams]="{step:'stone'}" >Hessonite Garnet</a>
+                </li>
+                <li >
+                  <a  [routerLink]="['/tanzanite/basic-search/.']" [queryParams]="{step:'stone'}" >Tanzanite</a>
+                </li>
+                <li >
+                  <a  [routerLink]="['/aquamarine/basic-search/.']" [queryParams]="{step:'stone'}" >Aquamarine</a>
+                </li>
+                <li >
+                  <a  [routerLink]="['/paraiba-tourmaline/basic-search/.']" [queryParams]="{step:'stone'}" >Paraiba Tourmaline</a>
+                </li>
+                <li >
+                  <a  [routerLink]="['/spinel/basic-search/.']" [queryParams]="{step:'stone'}" >Spinel</a>
+                </li>
+                                        </ul>
+                                       
+                                                                       
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                       
+                    </ul>
+                    <div class="menucontlink">
+                        <a href="tel:+1.888.436.7692"><i class="newsprite icon-call"></i> Call</a>
+                        <a href="javascript:void(0);" id="emailus_2"><i class="newsprite icon-email"></i> Email</a>
+                        <a href="javascript:void(0);" class="visitus"><i class="newsprite icon-locate"></i> Location</a>
+                        <a href="https://www.gemsny.com/request/appointment/"><i class="newsprite icon-appoint"></i> Appointment</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Navigation UI End--> 
+
+
+        <div class="row">
+
+            <div class="logo"><a [routerLink]="['/']"><img src="https://www.gemsny.com/images/mobi-logo.jpg" alt=""></a></div>
+
+            <div class="newwishcall">
+
+                <a href="tel:+1.888.436.7692"><i class="fa fa-phone-square visible-xs"></i></a>
+                <a href="https://www.gemsny.com/index.php?file=wishlist"><i class="fa fa-heart"></i></a>
+                <a href="https://www.gemsny.com/index.php?file=shoppingcart"><i class="fa fa-shopping-cart"></i></a>
+
+            </div>
+
+        </div>
+         <!--div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12 visible-xs">
+          <div style="text-align:center;">
+              <span style="color: #FF0000;font-weight: bolder"><img  src="https://www.gemsny.com/images/gs_ch.png" />Most items still available for Christmas<img  src="https://www.gemsny.com/images/gs_ch.png" /></span>
+              <a href="https://www.gemsny.com/immediate-delivery/" style="margin-top: auto;padding: 0;background: none;float: none;color:#FF0000;text-decoration:underline;font-size: 16px;font-weight:bold">View Ready to Ship Items For New Years</a>
+          </div>
+        </div>
+</div-->
+    </div>
+    
+    <nav id="nav" role="navigation">
+        <div class="block newnav" id="gemsnymenu">
+
+            <ul class="menu">
+                <li class="sub">
+                  <a  [routerLink]="['/sapphires/basic-search/.']" [queryParams]="{step:'stone'}" class="f1-link hidden-xs">Sapphires</a>
+                </li>
+                <li class="sub">
+                  <a  [routerLink]="['/ruby/basic-search/.']" [queryParams]="{step:'stone'}" class="f1-link hidden-xs">Ruby</a>
+                </li>
+                <li class="sub">
+                  <a  [routerLink]="['/emerald/basic-search/.']" [queryParams]="{step:'stone'}" class="f1-link hidden-xs">Emerald</a>
+                </li>
+               <li class="sub">
+                  <a  [routerLink]="['/alexandrite/basic-search/.']" [queryParams]="{step:'stone'}" class="f1-link hidden-xs">Alexandrite</a>
+                </li>
+                <li class="sub">
+                  <a  [routerLink]="['/tsavorite/basic-search/.']" [queryParams]="{step:'stone'}" class="f1-link hidden-xs">Tsavorite</a>
+                </li>
+                <li class="sub">
+                  <a  [routerLink]="['/hessonite-garnet/basic-search/.']" [queryParams]="{step:'stone'}" class="f1-link hidden-xs">Hessonite Garnet</a>
+                </li>
+                <li class="sub">
+                  <a  [routerLink]="['/tanzanite/basic-search/.']" [queryParams]="{step:'stone'}" class="f1-link hidden-xs">Tanzanite</a>
+                </li>
+                <li class="sub">
+                  <a  [routerLink]="['/aquamarine/basic-search/.']" [queryParams]="{step:'stone'}" class="f1-link hidden-xs">Aquamarine</a>
+                </li>
+                <li class="sub">
+                  <a  [routerLink]="['/paraiba-tourmaline/basic-search/.']" [queryParams]="{step:'stone'}" class="f1-link hidden-xs">Paraiba Tourmaline</a>
+                </li>
+                <li class="sub">
+                  <a  [routerLink]="['/spinel/basic-search/.']" [queryParams]="{step:'stone'}" class="f1-link hidden-xs">Spinel</a>
+                </li>
+               
+                
+              </ul>
+            <a class="close-btn newsprite" id="nav-close-btn" href="https://www.gemsny.com/faqs/https://www.gemsny.com/top">&nbsp;</a> </div>
+    </nav>
+    
+    <div class="clear"></div>
+</div>
+

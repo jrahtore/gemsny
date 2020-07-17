@@ -1,0 +1,732 @@
+<ng-container *ngIf="isDesktop">
+<div id="desk_results_panel" #boundary>
+  <h1 class="mobile-title maketitle col-md-8 col-sm-8 col-xs-12" style="padding-bottom:0px;padding-top:5px">Sapphire Search <span class="visible-xs nocount">(<span id="total_count_mob">{{ stoneResultModel.length }}</span> Results)</span></h1>
+  <div class="whatsize col-md-4 col-sm-4 col-xs-12">What size gem? <a href="https://www.gemsny.com/compare-stone/" target="_blank">View our stone size tool</a></div>
+  <div class="filtersticky " [ngClass]="(isSticky)?'sticky':''" id="filter-desktop-sticky" >
+    <div class="filterwrapper col-xs-12" id="filter-desktop" *ngIf="hideFilters">
+      
+      <a class="hidefilter">Filters</a>
+      <span (clickOutside)="cancel()"  >
+        <app-loading-spinner *ngIf="loadingFilter" class="col-md-12" style="left:45%"></app-loading-spinner>
+    <app-stone-filter-item *ngFor="let filter of filterArr | async	; let i = index" [filter]="filter" [currentItem]="i" [filterByUserModelSub]="filterByuser" [(childPopup)]="popup"   (current)="openMenuMain($event)" (filterByUserModelSubChange)="addFilterByUser($event)" ></app-stone-filter-item>
+        </span>
+     
+    </div>
+    <div class="col-xs-12 filterresult"  *ngIf="filterByUserArr.length>0 && hideFilters">
+       <span class="clear-filter" (click)="deleteAllFilterByUser()" style="color:#FF0000;cursor:pointer">Clear Filters</span>
+      <span  *ngFor="let fi of filterByUserArr ; let i = index">{{fi.title}}<a class="newsprite" title="Close" (click)="deleteFilterByUser(i)"></a></span>
+     
+    </div>
+    
+      <div class=" col-xs-12" >
+        <div class="resulttab">
+          <a href="javascript:;" id="result_tab" title="Result" class="col-xs-6 active result_link">Result (<span id="">{{ stoneResultModel.length }}</span>)</a>
+
+        </div>
+      </div>
+
+      <div class=" col-xs-12">
+        <div class="tab-content newresultsorting  tab-cont">
+          <div class="tab-pane active">
+            <div class="row">
+              <div class="flex-container-top hidden-xs">
+                <div class="pricesorting">
+                  <div class="select-auto">
+                    <div class="gray-select">
+                      <select class="select1" id="bottom_sortby" name="bottom_sortby" sb="46558239" style="display: none;">
+                        <option value="PLTH">Price Low to High</option>
+                        <option value="PHTL">Price High to Low</option>
+                        <option value="WLTH">Weight Low to High</option>
+                        <option value="WHTL">Weight High to Low</option>
+                      </select>
+                      <div id="sbHolder_46558239" class="sbHolder">
+                        <a id="sbToggle_46558239" href="#" class="sbToggle"></a>
+                        <a id="sbSelector_46558239" href="#" class="sbSelector">Price Low to High</a>
+                        <ul id="sbOptions_46558239" class="sbOptions" style="display: none;">
+                          <li><a href="#PLTH" rel="PLTH" class="sbFocus">Price Low to High</a></li>
+                          <li><a href="#PHTL" rel="PHTL">Price High to Low</a></li>
+                          <li><a href="#WLTH" rel="WLTH">Weight Low to High</a></li>
+                          <li><a href="#WHTL" rel="WHTL">Weight High to Low</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="listgridview">
+                  <div class="view-option">
+                    <a view="list" class=" listtab" [ngClass]="listView?'active':''" (click)="listView=true;" title="List View">List<br>View <i class="newsprite listicon"></i></a>
+                    <a view="gallery" class="gridtab" (click)="listView=false;" [ngClass]="!listView?'active':''" title="Gallery View">Gallery<br>View <i class="newsprite gridicon"></i></a>
+                  </div>
+                </div>
+                <div class="newbtnwrap hideshowfilter_btnwrap">
+                  <a href="javascript:;" (click)="hideFilters = !hideFilters" class="button" [ngClass]="(!hideFilters)?'showbtn':''">{{hideFilters == false ? 'Show' : 'Hide'}} Filters</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    
+  </div>
+
+
+  <div class="col-xs-12 listresultwrap" *ngIf="listView" >
+    <div class="listresult_table" style="display: block;">
+      <table cellpadding="0" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            
+            <th>Image/Video</th>
+            <th>Item #</th>
+            <th>Sale Price</th>
+            <th> <a data-target="#sapphire_caratweight_education" data-toggle="modal" style="cursor: pointer">Weight &nbsp;<img src="https://www.gemsny.com/images/help-icon.png" class="vam" alt=""></a></th>
+            <th> <a style="cursor: pointer" data-target="#sapphire_dimensions_education" data-toggle="modal">Dimensions &nbsp;<img src="https://www.gemsny.com/images/help-icon.png" class="vam" alt=""></a></th>
+            <th>Shape</th>
+            <th> <a style="cursor: pointer" data-target="#sapphire_color_intensity_education" data-toggle="modal">Color<br />Intensity &nbsp;<img src="https://www.gemsny.com/images/help-icon.png" class="vam" alt=""></a></th>
+            <th> <a style="cursor: pointer" data-target="#sapphire_clarity_education" data-toggle="modal">Eye<br>Clarity &nbsp;<img src="https://www.gemsny.com/images/help-icon.png" class="vam" alt=""></a></th>
+            <th>Transparency</th>
+            <th> <a style="cursor: pointer" data-target="#sapphire_enhancement_education" data-toggle="modal">Enhancement &nbsp;<img src="https://www.gemsny.com/images/help-icon.png" class="vam" alt=""></a></th>
+            <th>Origin</th>
+            <th>Lab</th>
+          </tr>
+        </thead>
+
+        <tbody id="SearchResultOutput">
+          <tr app-stone-list-item *ngFor="let res of stoneResultModel"
+              [stoneResult]="res"
+              [routerLink]="[res.url]" ></tr>
+        
+        </tbody>
+        <tbody id="CompareOutput" style="display:none;">
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+
+
+
+  <div class="gridresultwrap mobi_gridresult" *ngIf="!listView">
+    <ul id="SearchResultgridOutput">
+       <app-loading-spinner *ngIf="loadingResult" class="col-md-12" style="left:45%"></app-loading-spinner>
+      <ul id="gridResult">
+        <app-stone-grid-item  *ngFor="let res of stoneResultModel"
+                             [stoneResult]="res"
+                             ></app-stone-grid-item>
+    </ul>
+     
+
+    </ul>
+  </div>
+
+
+
+</div>
+
+
+    <div class="filter-sort">
+    <div class="options sort-box compare-hide">
+        <i style="color: #53377a;font-size:18px" class="fa fa-sort sort-icon"></i> Sort
+        <div class="sort-options">
+            <div class="toolbar-sorter sorter">
+                <select id="sorter" class="sorter-options omniture-sorting-select-mob">
+                    <option value="PLTH">Price Low to High</option>
+                    <option value="PHTL">Price High to Low</option>
+                    <option value="WLTH">Weight Low to High</option>
+                    <option value="WHTL">Weight High to Low</option>
+                </select>
+                <a href="#" class="action sorter-action sort-asc"><span>Set Descending Direction</span></a></div>
+        </div>
+    </div>    
+    <div class="options sort-box" style="display: none;" id="result_tab_mob">
+        <i style="color: #53377a;font-size:18px" class="newsprite resulticon" aria-hidden="true"></i>Result
+    </div>
+
+    <div class="options sort-box compareicon_mobile compareSectionActive" id="comapre_tab_mob">
+        <i style="color: #53377a;font-size:18px" class="newsprite" aria-hidden="true"></i>Compare <span class="purple-text">(<span id="mob_res_comp">0</span>)</span>
+    </div>
+    <div class="options filter-box compare-hide">
+        <i style="color: #53377a;font-size:18px" class="fa fa-filter" aria-hidden="true"></i>Filters
+    </div>
+    </div>
+
+  </ng-container>
+
+<ng-container *ngIf="!isDesktop">
+  <div id="desk_results_panel" #boundary>
+  <h1 class="mobile-title maketitle col-md-8 col-sm-8 col-xs-12" style="padding-bottom:0px;padding-top:5px">Sapphire Search <span class="visible-xs nocount">(<span id="total_count_mob">{{ stoneResultModel.length }}</span> Results)</span></h1>
+  <div class="whatsize col-md-4 col-sm-4 col-xs-12">What size gem? <a href="https://www.gemsny.com/compare-stone/" target="_blank">View our stone size tool</a></div>
+  
+
+
+  
+
+
+
+  <div class="gridresultwrap mobi_gridresult" *ngIf="!listView">
+    <ul id="SearchResultgridOutput">
+       <app-loading-spinner *ngIf="loadingResult" class="col-md-12" style="left:45%"></app-loading-spinner>
+      <ul id="gridResult">
+        <app-stone-grid-item  *ngFor="let res of stoneResultModel"
+                             [stoneResult]="res"
+                             ></app-stone-grid-item>
+    </ul>
+     
+
+    </ul>
+  </div>
+
+
+
+</div>
+
+
+   <div class="filter-sort">
+    <div class="options sort-box compare-hide">
+        <i style="color: #53377a;font-size:18px" class="fa fa-sort sort-icon"></i> Sort
+        <div class="sort-options">
+            <div class="toolbar-sorter sorter">
+                <select id="sorter" class="sorter-options omniture-sorting-select-mob">
+                    <option value="PLTH">Price Low to High</option>
+                    <option value="PHTL">Price High to Low</option>
+                    <option value="WLTH">Weight Low to High</option>
+                    <option value="WHTL">Weight High to Low</option>
+                </select>
+                <a href="#" class="action sorter-action sort-asc"><span>Set Descending Direction</span></a></div>
+        </div>
+    </div>    
+    <div class="options sort-box" style="display: none;" id="result_tab_mob">
+        <i style="color: #53377a;font-size:18px" class="newsprite resulticon" aria-hidden="true"></i>Result
+    </div>
+
+    <div class="options sort-box compareicon_mobile compareSectionActive" id="comapre_tab_mob">
+        <i style="color: #53377a;font-size:18px" class="newsprite" aria-hidden="true"></i>Compare <span class="purple-text">(<span id="mob_res_comp">0</span>)</span>
+    </div>
+    <div class="options filter-box compare-hide">
+        <i style="color: #53377a;font-size:18px" class="fa fa-filter" aria-hidden="true"></i>Filters
+    </div>
+    </div>
+<div id="layered-filter-block" class="block filter filtermobiview filterback" style="display: none;">
+   <a href="javascript:void(0);" class="backtoresult"><span>←</span> Back to Result</a>
+   <div class="filter-action-holder">
+      <div class="filter-close"><span class="close-icon"></span><span class="title">Filter By <span class="purple-text">(<span id="mob_res_count">6,909</span> Results)</span></span></div>
+      <div class="filter-action-btn">
+         <div id="layered-selected-filters-block2" class="clear-filter">
+            <a class="action-clear" href="javascript:;" id="clear_all_mob"><span>Clear All</span></a>
+         </div>
+         <div class="apply-filter"><a id="apply" class="" href="javascript:void(0)">Apply</a></div>
+      </div>
+   </div>
+   <div class="block-content filter-content filter-titles" style="overflow:auto">
+      <div class="filter-options" id="narrow-by-list-title">
+         <div class="filter-options-item active" data-filter-for="gem" role="tablist">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">Gem Type<span class="arrow"></span></div>
+         </div>
+         <div class="filter-options-item " data-filter-for="colors" role="tablist">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">Sapphire Color<span class="arrow"></span></div>
+         </div>
+         <div class="filter-options-item " data-filter-for="shapes" role="tablist">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">Shape<span class="arrow"></span></div>
+         </div>
+         <div class="filter-options-item " data-filter-for="carat" role="tablist">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">Weight<span class="arrow"></span></div>
+         </div>
+         <div class="filter-options-item " data-filter-for="price" role="tablist">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">Price<span class="arrow"></span></div>
+         </div>
+         <div class="filter-options-item " data-filter-for="pair" role="tablist">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">Single/Pair<span class="arrow"></span></div>
+         </div>
+         <div class="filter-options-item " data-filter-for="treatments" role="tablist">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">Enhancement<span class="arrow"></span></div>
+         </div>
+         <div class="filter-options-item " data-filter-for="origin" role="tablist">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">Origin<span class="arrow"></span></div>
+         </div>
+         <div class="filter-options-item " data-filter-for="color_intensity" role="tablist" style="display: none;">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">Color Intensity<span class="arrow"></span></div>
+         </div>
+         <div class="filter-options-item " data-filter-for="clarity" role="tablist">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">Clarity<span class="arrow"></span></div>
+         </div>
+         <div class="filter-options-item " data-filter-for="transparency" role="tablist">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">Transparency<span class="arrow"></span></div>
+         </div>
+         <div class="filter-options-item " data-filter-for="certificate" role="tablist">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">Certificate<span class="arrow"></span></div>
+         </div>
+         <div class="filter-options-item " data-filter-for="length" role="tablist">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">Length<span class="arrow"></span></div>
+         </div>
+         <div class="filter-options-item " data-filter-for="width" role="tablist">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">Width<span class="arrow"></span></div>
+         </div>
+         <div class="filter-options-item " data-filter-for="lwr" role="tablist">
+            <div data-role="title" class="filter-options-title" role="tab" aria-selected="false" aria-expanded="false" tabindex="0">L/W Ratio<span class="arrow"></span></div>
+         </div>
+      </div>
+   </div>
+   <div class="block-content filter-content filter-contents">
+      <div class="filter-options" id="narrow-by-list">
+         <div class="filter-options-item gem" style="display:inline-block" data-filter-for="gem">
+            <div data-role="content" class="filter-options-content">
+               <ul>
+                  <span class="mobifilter_title">Gem Type</span>
+                  <li class="filter-option" data-target="gem" data="Sapphire">
+                     <label for="Sapphire" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="gem"><input data-target="gem" v="Sapphire" data="Sapphire" type="checkbox" id="Sapphire" value="Sapphire" checked="checked">
+                     <label for="Sapphire" data-target="gem" class="new-checkbox" data="Sapphire"></label></div><label for="Sapphire" data="Sapphire" data-target="gem" class="filter-option-name">Sapphire</label></label>
+                  </li>
+                  <li class="filter-option" data-target="gem" data="Ruby">
+                     <label for="Ruby" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="gem"><input data-target="gem" v="Ruby" data="Ruby" type="checkbox" id="Ruby" value="Ruby">
+                     <label for="Ruby" data-target="gem" class="new-checkbox" data="Ruby"></label></div><label for="Ruby" data="Ruby" data-target="gem" class="filter-option-name">Ruby</label></label>
+                  </li>
+                  <li class="filter-option" data-target="gem" data="Emerald ">
+                     <label for="Emerald " style="cursor:pointer">
+                        <div class="checkbox-container" data-target="gem"><input data-target="gem" v="Emerald" data="Emerald " type="checkbox" id="Emerald " value="Emerald ">
+                     <label for="Emerald " data-target="gem" class="new-checkbox" data="Emerald "></label></div><label for="Emerald " data="Emerald " data-target="gem" class="filter-option-name">Emerald</label></label>
+                  </li>
+                  <li class="filter-option" data-target="gem" data="Alexandrite">
+                     <label for="Alexandrite" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="gem"><input data-target="gem" v="Alexandrite" data="Alexandrite" type="checkbox" id="Alexandrite" value="Alexandrite">
+                     <label for="Alexandrite" data-target="gem" class="new-checkbox" data="Alexandrite"></label></div><label for="Alexandrite" data="Alexandrite" data-target="gem" class="filter-option-name">Alexandrite</label></label>
+                  </li>
+                  <li class="filter-option" data-target="gem" data="Tsavorite">
+                     <label for="Tsavorite" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="gem"><input data-target="gem" v="Tsavorite" data="Tsavorite" type="checkbox" id="Tsavorite" value="Tsavorite">
+                     <label for="Tsavorite" data-target="gem" class="new-checkbox" data="Tsavorite"></label></div><label for="Tsavorite" data="Tsavorite" data-target="gem" class="filter-option-name">Tsavorite</label></label>
+                  </li>
+                  <li class="filter-option" data-target="gem" data="Tanzanite">
+                     <label for="Tanzanite" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="gem"><input data-target="gem" v="Tanzanite" data="Tanzanite" type="checkbox" id="Tanzanite" value="Tanzanite">
+                     <label for="Tanzanite" data-target="gem" class="new-checkbox" data="Tanzanite"></label></div><label for="Tanzanite" data="Tanzanite" data-target="gem" class="filter-option-name">Tanzanite</label></label>
+                  </li>
+                  <li class="filter-option" data-target="gem" data="Hessonite">
+                     <label for="Hessonite" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="gem"><input data-target="gem" v="Hessonite-Garnet" data="Hessonite" type="checkbox" id="Hessonite" value="Hessonite">
+                     <label for="Hessonite" data-target="gem" class="new-checkbox" data="Hessonite"></label></div><label for="Hessonite" data="Hessonite" data-target="gem" class="filter-option-name">Hessonite Garnet</label></label>
+                  </li>
+                  <li class="filter-option" data-target="gem" data="Aquamarine">
+                     <label for="Aquamarine" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="gem"><input data-target="gem" v="Aquamarine" data="Aquamarine" type="checkbox" id="Aquamarine" value="Aquamarine">
+                     <label for="Aquamarine" data-target="gem" class="new-checkbox" data="Aquamarine"></label></div><label for="Aquamarine" data="Aquamarine" data-target="gem" class="filter-option-name">Aquamarine</label></label>
+                  </li>
+                  <li class="filter-option" data-target="gem" data="Peridot">
+                     <label for="Peridot" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="gem"><input data-target="gem" v="Peridot" data="Peridot" type="checkbox" id="Peridot" value="Peridot">
+                     <label for="Peridot" data-target="gem" class="new-checkbox" data="Peridot"></label></div><label for="Peridot" data="Peridot" data-target="gem" class="filter-option-name">Peridot</label></label>
+                  </li>
+                  <li class="filter-option" data-target="gem" data="Pink-Tourmaline">
+                     <label for="Pink-Tourmaline" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="gem"><input data-target="gem" v="Pink-Tourmaline" data="Pink-Tourmaline" type="checkbox" id="Pink-Tourmaline" value="Pink-Tourmaline">
+                     <label for="Pink-Tourmaline" data-target="gem" class="new-checkbox" data="Pink-Tourmaline"></label></div><label for="Pink-Tourmaline" data="Pink-Tourmaline" data-target="gem" class="filter-option-name">Pink Tourmaline</label></label>
+                  </li>
+                  <li class="filter-option" data-target="gem" data="Spinel">
+                     <label for="Spinel" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="gem"><input data-target="gem" v="Spinel" data="Spinel" type="checkbox" id="Spinel" value="Spinel">
+                     <label for="Spinel" data-target="gem" class="new-checkbox" data="Spinel"></label></div><label for="Spinel" data="Spinel" data-target="gem" class="filter-option-name">Spinel</label></label>
+                  </li>
+                  <li class="filter-option" data-target="gem" data="Pariba-Tourmaline">
+                     <label for="Pariba-Tourmaline" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="gem"><input data-target="gem" v="Paraiba-Tourmaline" data="Pariba-Tourmaline" type="checkbox" id="Pariba-Tourmaline" value="Pariba-Tourmaline">
+                     <label for="Pariba-Tourmaline" data-target="gem" class="new-checkbox" data="Pariba-Tourmaline"></label></div><label for="Pariba-Tourmaline" data="Pariba-Tourmaline" data-target="gem" class="filter-option-name">Paraiba Tourmaline</label></label>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="filter-options-item colors" style="display:none" data-filter-for="colors">
+            <div data-role="content" class="filter-options-content">
+               <ul>
+                  <span class="mobifilter_title">Sapphire Color</span>
+                  <li class="filter-option" data-target="colors" data="Blue">
+                     <label for="Blue" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="colors"><input data-target="colors" v="Blue" data="Blue" type="checkbox" id="Blue" value="Blue">
+                     <label for="Blue" data-target="colors" class="new-checkbox" data="Blue"></label></div><label for="Blue" data="Blue" data-target="colors" class="filter-option-name">Blue</label></label>
+                  </li>
+                  <li class="filter-option" data-target="colors" data="Yellow">
+                     <label for="Yellow" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="colors"><input data-target="colors" v="Yellow" data="Yellow" type="checkbox" id="Yellow" value="Yellow">
+                     <label for="Yellow" data-target="colors" class="new-checkbox" data="Yellow"></label></div><label for="Yellow" data="Yellow" data-target="colors" class="filter-option-name">Yellow</label></label>
+                  </li>
+                  <li class="filter-option" data-target="colors" data="Pink">
+                     <label for="Pink" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="colors"><input data-target="colors" v="Pink" data="Pink" type="checkbox" id="Pink" value="Pink">
+                     <label for="Pink" data-target="colors" class="new-checkbox" data="Pink"></label></div><label for="Pink" data="Pink" data-target="colors" class="filter-option-name">Pink</label></label>
+                  </li>
+                  <li class="filter-option" data-target="colors" data="White">
+                     <label for="White" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="colors"><input data-target="colors" v="White" data="White" type="checkbox" id="White" value="White">
+                     <label for="White" data-target="colors" class="new-checkbox" data="White"></label></div><label for="White" data="White" data-target="colors" class="filter-option-name">White</label></label>
+                  </li>
+                  <li class="filter-option" data-target="colors" data="Purple">
+                     <label for="Purple" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="colors"><input data-target="colors" v="Purple" data="Purple" type="checkbox" id="Purple" value="Purple">
+                     <label for="Purple" data-target="colors" class="new-checkbox" data="Purple"></label></div><label for="Purple" data="Purple" data-target="colors" class="filter-option-name">Purple</label></label>
+                  </li>
+                  <li class="filter-option" data-target="colors" data="Lavender">
+                     <label for="Lavender" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="colors"><input data-target="colors" v="Lavender" data="Lavender" type="checkbox" id="Lavender" value="Lavender">
+                     <label for="Lavender" data-target="colors" class="new-checkbox" data="Lavender"></label></div><label for="Lavender" data="Lavender" data-target="colors" class="filter-option-name">Lavender</label></label>
+                  </li>
+                  <li class="filter-option" data-target="colors" data="Green">
+                     <label for="Green" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="colors"><input data-target="colors" v="Green" data="Green" type="checkbox" id="Green" value="Green">
+                     <label for="Green" data-target="colors" class="new-checkbox" data="Green"></label></div><label for="Green" data="Green" data-target="colors" class="filter-option-name">Green</label></label>
+                  </li>
+                  <li class="filter-option" data-target="colors" data="Padparadscha">
+                     <label for="Padparadscha" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="colors"><input data-target="colors" v="Padparadscha" data="Padparadscha" type="checkbox" id="Padparadscha" value="Padparadscha">
+                     <label for="Padparadscha" data-target="colors" class="new-checkbox" data="Padparadscha"></label></div><label for="Padparadscha" data="Padparadscha" data-target="colors" class="filter-option-name">Padparadscha</label></label>
+                  </li>
+                  <li class="filter-option" data-target="colors" data="Peach">
+                     <label for="Peach" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="colors"><input data-target="colors" v="Peach" data="Peach" type="checkbox" id="Peach" value="Peach">
+                     <label for="Peach" data-target="colors" class="new-checkbox" data="Peach"></label></div><label for="Peach" data="Peach" data-target="colors" class="filter-option-name">Peach</label></label>
+                  </li>
+                  <li class="filter-option" data-target="colors" data="Orange">
+                     <label for="Orange" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="colors"><input data-target="colors" v="Orange" data="Orange" type="checkbox" id="Orange" value="Orange">
+                     <label for="Orange" data-target="colors" class="new-checkbox" data="Orange"></label></div><label for="Orange" data="Orange" data-target="colors" class="filter-option-name">Orange</label></label>
+                  </li>
+                  <li class="filter-option" data-target="colors" data="Teal">
+                     <label for="Teal" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="colors"><input data-target="colors" v="Teal" data="Teal" type="checkbox" id="Teal" value="Teal">
+                     <label for="Teal" data-target="colors" class="new-checkbox" data="Teal"></label></div><label for="Teal" data="Teal" data-target="colors" class="filter-option-name">Teal</label></label>
+                  </li>
+                  <li class="filter-option" data-target="colors" data="Change">
+                     <label for="Change" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="colors"><input data-target="colors" v="Color Change" data="Change" type="checkbox" id="Change" value="Change">
+                     <label for="Change" data-target="colors" class="new-checkbox" data="Change"></label></div><label for="Change" data="Change" data-target="colors" class="filter-option-name">Color Change</label></label>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="filter-options-item shapes" style="display:none" data-filter-for="shapes">
+            <div data-role="content" class="filter-options-content">
+               <ul>
+                  <span class="mobifilter_title">Shape</span>
+                  <li class="filter-option" data-target="shapes" data="Round">
+                     <label for="Round" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="shapes"><input data-target="shapes" v="Round" data="Round" type="checkbox" id="Round" value="Round">
+                     <label for="Round" data-target="shapes" class="new-checkbox" data="Round"></label></div><label for="Round" data="Round" data-target="shapes" class="filter-option-name">Round</label><span class="shapeimg"><img src="https://www.gemsny.com/images/shapes/Round.jpg"></span></label>
+                  </li>
+                  <li class="filter-option" data-target="shapes" data="Oval">
+                     <label for="Oval" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="shapes"><input data-target="shapes" v="Oval" data="Oval" type="checkbox" id="Oval" value="Oval">
+                     <label for="Oval" data-target="shapes" class="new-checkbox" data="Oval"></label></div><label for="Oval" data="Oval" data-target="shapes" class="filter-option-name">Oval</label><span class="shapeimg"><img src="https://www.gemsny.com/images/shapes/Oval.jpg"></span></label>
+                  </li>
+                  <li class="filter-option" data-target="shapes" data="Cushion">
+                     <label for="Cushion" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="shapes"><input data-target="shapes" v="Cushion" data="Cushion" type="checkbox" id="Cushion" value="Cushion">
+                     <label for="Cushion" data-target="shapes" class="new-checkbox" data="Cushion"></label></div><label for="Cushion" data="Cushion" data-target="shapes" class="filter-option-name">Cushion</label><span class="shapeimg"><img src="https://www.gemsny.com/images/shapes/Cushion.jpg"></span></label>
+                  </li>
+                  <li class="filter-option" data-target="shapes" data="Emerald">
+                     <label for="Emerald" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="shapes"><input data-target="shapes" v="Emerald" data="Emerald" type="checkbox" id="Emerald" value="Emerald">
+                     <label for="Emerald" data-target="shapes" class="new-checkbox" data="Emerald"></label></div><label for="Emerald" data="Emerald" data-target="shapes" class="filter-option-name">Emerald</label><span class="shapeimg"><img src="https://www.gemsny.com/images/shapes/Emerald.jpg"></span></label>
+                  </li>
+                  <li class="filter-option" data-target="shapes" data="Asscher">
+                     <label for="Asscher" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="shapes"><input data-target="shapes" v="Asscher" data="Asscher" type="checkbox" id="Asscher" value="Asscher">
+                     <label for="Asscher" data-target="shapes" class="new-checkbox" data="Asscher"></label></div><label for="Asscher" data="Asscher" data-target="shapes" class="filter-option-name">Asscher</label><span class="shapeimg"><img src="https://www.gemsny.com/images/shapes/Asscher.jpg"></span></label>
+                  </li>
+                  <li class="filter-option" data-target="shapes" data="Pear">
+                     <label for="Pear" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="shapes"><input data-target="shapes" v="Pear" data="Pear" type="checkbox" id="Pear" value="Pear">
+                     <label for="Pear" data-target="shapes" class="new-checkbox" data="Pear"></label></div><label for="Pear" data="Pear" data-target="shapes" class="filter-option-name">Pear</label><span class="shapeimg"><img src="https://www.gemsny.com/images/shapes/Pear.jpg"></span></label>
+                  </li>
+                  <li class="filter-option" data-target="shapes" data="Princess">
+                     <label for="Princess" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="shapes"><input data-target="shapes" v="Square" data="Princess" type="checkbox" id="Princess" value="Princess">
+                     <label for="Princess" data-target="shapes" class="new-checkbox" data="Princess"></label></div><label for="Princess" data="Princess" data-target="shapes" class="filter-option-name">Square</label><span class="shapeimg"><img src="https://www.gemsny.com/images/shapes/Princess.jpg"></span></label>
+                  </li>
+                  <li class="filter-option" data-target="shapes" data="Heart">
+                     <label for="Heart" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="shapes"><input data-target="shapes" v="Heart" data="Heart" type="checkbox" id="Heart" value="Heart">
+                     <label for="Heart" data-target="shapes" class="new-checkbox" data="Heart"></label></div><label for="Heart" data="Heart" data-target="shapes" class="filter-option-name">Heart</label><span class="shapeimg"><img src="https://www.gemsny.com/images/shapes/Heart.jpg"></span></label>
+                  </li>
+                  <li class="filter-option" data-target="shapes" data="Marquise">
+                     <label for="Marquise" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="shapes"><input data-target="shapes" v="Marquise" data="Marquise" type="checkbox" id="Marquise" value="Marquise">
+                     <label for="Marquise" data-target="shapes" class="new-checkbox" data="Marquise"></label></div><label for="Marquise" data="Marquise" data-target="shapes" class="filter-option-name">Marquise</label><span class="shapeimg"><img src="https://www.gemsny.com/images/shapes/Marquise.jpg"></span></label>
+                  </li>
+                  <li class="filter-option" data-target="shapes" data="Trillion">
+                     <label for="Trillion" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="shapes"><input data-target="shapes" v="Trillion" data="Trillion" type="checkbox" id="Trillion" value="Trillion">
+                     <label for="Trillion" data-target="shapes" class="new-checkbox" data="Trillion"></label></div><label for="Trillion" data="Trillion" data-target="shapes" class="filter-option-name">Trillion</label><span class="shapeimg"><img src="https://www.gemsny.com/images/shapes/Trillion.jpg"></span></label>
+                  </li>
+                  <li class="filter-option" data-target="shapes" data="Cabochon">
+                     <label for="Cabochon" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="shapes"><input data-target="shapes" v="Cabochon" data="Cabochon" type="checkbox" id="Cabochon" value="Cabochon">
+                     <label for="Cabochon" data-target="shapes" class="new-checkbox" data="Cabochon"></label></div><label for="Cabochon" data="Cabochon" data-target="shapes" class="filter-option-name">Cabochon</label><span class="shapeimg"><img src="https://www.gemsny.com/images/shapes/Cabochon.jpg"></span></label>
+                  </li>
+                  <li class="filter-option" data-target="shapes" data="Star">
+                     <label for="Star" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="shapes"><input data-target="shapes" v="Star" data="Star" type="checkbox" id="Star" value="Star">
+                     <label for="Star" data-target="shapes" class="new-checkbox" data="Star"></label></div><label for="Star" data="Star" data-target="shapes" class="filter-option-name">Star</label><span class="shapeimg"><img src="https://www.gemsny.com/images/shapes/Star.jpg"></span></label>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="filter-options-item carat" style="display:none" data-filter-for="carat">
+            <div data-role="content" class="filter-options-content"><span class="mobifilter_title">Weight<a class="eduLink" data-class="eduHtml" data-target="#sapphire_caratweight_education" data-toggle="modal" style="cursor: pointer;"><img src="https://www.gemsny.com/images/help-icon.png" data-class="eduHtml" style="margin-top: 3px;margin-left: 3px;" class="vam" alt=""></a></span></div>
+            <div class="select-choose__list priceslide" style="display:inline-block;position:relative;height:auto;">
+               <div class="select-choose__item serch-input pb5">
+                  <input class="left tac prize-control" size="8" type="text" pattern="[0-9]+[,]+[.]" name="dmincarat" id="dmincarat" value="0.25" onchange="scrollSlider(event,'carat');"><input class="right tac prize-control" size="8" type="text" pattern="[0-9]+[,]+[.]" name="dmaxcarat" id="dmaxcarat" value="100" onchange="scrollSlider(event,'carat');"><input type="hidden" name="carat_low" id="carat_low" value="0.25"><input type="hidden" name="min_carat" id="min_carat" value="0.25" disabled="disabled"><input type="hidden" name="carat_high" id="carat_high" value="100"><input type="hidden" name="max_carat" id="max_carat" value="100" disabled="disabled">
+                  <div class="catinner">
+                     <div class="slider-corner">
+                        <div id="slider-carat-range" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                           <div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div>
+                           <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;"></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="clear"></div>
+                  <div><a class="eduLink" data-class="eduHtml" data-target="#sapphire_caratweight_education" data-toggle="modal" style="cursor: pointer;">Learn more about Carat Weight </a>    </div>
+               </div>
+            </div>
+         </div>
+         <div class="filter-options-item price" style="display:none" data-filter-for="price">
+            <div data-role="content" class="filter-options-content">
+               <span class="mobifilter_title">Price</span>
+               <div class="select-choose__list priceslide" style="display:inline-block;position:relative;height:auto;">
+                  <div class="select-choose__item serch-input pb5">
+                     <input class="left tac prize-control" size="8" type="text" pattern="[0-9]+[,]+[.]" name="dminprice" id="dminprice" value="150" onchange="scrollSlider(event,'price');"><input class="right tac prize-control" size="8" type="text" pattern="[0-9]+[,]+[.]" name="dmaxprice" id="dmaxprice" value="1,250,000" onchange="scrollSlider(event,'price');"><input type="hidden" name="price_low" id="price_low" value="150"><input type="hidden" name="min_price" id="min_price" value="150" disabled="disabled"><input type="hidden" name="price_high" id="price_high" value="1250000"><input type="hidden" name="max_price" id="max_price" value="1250000" disabled="disabled">
+                     <div class="catinner">
+                        <div class="slider-corner">
+                           <div id="slider-price-range" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                              <div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div>
+                              <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;"></span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="filter-options-item pair" style="display:none" data-filter-for="pair">
+            <div data-role="content" class="filter-options-content">
+               <ul>
+                  <span class="mobifilter_title">Single/Pair</span>
+                  <li class="filter-option" data-target="pair" data="S">
+                     <label for="S" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="pair"><input data-target="pair" v="Single" data="S" type="checkbox" id="S" value="S" checked="checked">
+                     <label for="S" data-target="pair" class="new-checkbox" data="S"></label></div><label for="S" data="S" data-target="pair" class="filter-option-name">Single</label></label>
+                  </li>
+                  <li class="filter-option" data-target="pair" data="P">
+                     <label for="P" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="pair"><input data-target="pair" v="Pair" data="P" type="checkbox" id="P" value="P">
+                     <label for="P" data-target="pair" class="new-checkbox" data="P"></label></div><label for="P" data="P" data-target="pair" class="filter-option-name">Pair</label></label>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="filter-options-item treatments" style="display:none" data-filter-for="treatments">
+            <div data-role="content" class="filter-options-content">
+               <ul><span class="mobifilter_title">Enhancement<a class="eduLink" data-class="eduHtml" data-target="#sapphire_enhancement_education" data-toggle="modal" style="cursor: pointer;"><img src="https://www.gemsny.com/images/help-icon.png" data-class="eduHtml" style="margin-top: 3px;margin-left: 3px;" class="vam" alt=""></a></span></ul>
+            </div>
+            <li class="filter-option" data-target="treatments" data="Heated">
+               <label for="Heated" style="cursor:pointer">
+                  <div class="checkbox-container" data-target="treatments"><input data-target="treatments" v="Heated" data="Heated" type="checkbox" id="Heated" value="Heated">
+               <label for="Heated" data-target="treatments" class="new-checkbox" data="Heated"></label></div><label for="Heated" data="Heated" data-target="treatments" class="filter-option-name">Heated</label></label>
+            </li>
+            <li class="filter-option" data-target="treatments" data="None">
+               <label for="None" style="cursor:pointer">
+                  <div class="checkbox-container" data-target="treatments"><input data-target="treatments" v="None" data="None" type="checkbox" id="None" value="None">
+               <label for="None" data-target="treatments" class="new-checkbox" data="None"></label></div><label for="None" data="None" data-target="treatments" class="filter-option-name">None</label></label>
+            </li>
+            <li class="filter-option" data-target="treatments" data="Beryllium">
+               <label for="Beryllium" style="cursor:pointer">
+                  <div class="checkbox-container" data-target="treatments"><input data-target="treatments" v="Beryllium" data="Beryllium" type="checkbox" id="Beryllium" value="Beryllium">
+               <label for="Beryllium" data-target="treatments" class="new-checkbox" data="Beryllium"></label></div><label for="Beryllium" data="Beryllium" data-target="treatments" class="filter-option-name">Beryllium</label></label>
+            </li>
+            <div class="clear"></div>
+            <div><a class="eduLink" data-class="eduHtml" data-target="#sapphire_enhancement_education" data-toggle="modal" style="cursor: pointer;">Learn more about Enhancement </a></div>
+         </div>
+         <div class="filter-options-item origin" style="display:none" data-filter-for="origin">
+            <div data-role="content" class="filter-options-content">
+               <ul>
+                  <span class="mobifilter_title">Origin</span>
+                  <li class="filter-option" data-target="origin" data="Madagascar">
+                     <label for="Madagascar" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="origin"><input data-target="origin" v="Madagascar" data="Madagascar" type="checkbox" id="Madagascar" value="Madagascar">
+                     <label for="Madagascar" data-target="origin" class="new-checkbox" data="Madagascar"></label></div><label for="Madagascar" data="Madagascar" data-target="origin" class="filter-option-name">Madagascar</label></label>
+                  </li>
+                  <li class="filter-option" data-target="origin" data="Ceylon">
+                     <label for="Ceylon" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="origin"><input data-target="origin" v="Ceylon" data="Ceylon" type="checkbox" id="Ceylon" value="Ceylon">
+                     <label for="Ceylon" data-target="origin" class="new-checkbox" data="Ceylon"></label></div><label for="Ceylon" data="Ceylon" data-target="origin" class="filter-option-name">Ceylon</label></label>
+                  </li>
+                  <li class="filter-option" data-target="origin" data="Thailand">
+                     <label for="Thailand" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="origin"><input data-target="origin" v="Thailand" data="Thailand" type="checkbox" id="Thailand" value="Thailand">
+                     <label for="Thailand" data-target="origin" class="new-checkbox" data="Thailand"></label></div><label for="Thailand" data="Thailand" data-target="origin" class="filter-option-name">Thailand</label></label>
+                  </li>
+                  <li class="filter-option" data-target="origin" data="Australian">
+                     <label for="Australian" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="origin"><input data-target="origin" v="Australia" data="Australian" type="checkbox" id="Australian" value="Australian">
+                     <label for="Australian" data-target="origin" class="new-checkbox" data="Australian"></label></div><label for="Australian" data="Australian" data-target="origin" class="filter-option-name">Australia</label></label>
+                  </li>
+                  <li class="filter-option" data-target="origin" data="Burma">
+                     <label for="Burma" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="origin"><input data-target="origin" v="Burma" data="Burma" type="checkbox" id="Burma" value="Burma">
+                     <label for="Burma" data-target="origin" class="new-checkbox" data="Burma"></label></div><label for="Burma" data="Burma" data-target="origin" class="filter-option-name">Burma</label></label>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="filter-options-item color_intensity" style="display:none" data-filter-for="color_intensity">
+            <div data-role="content" class="filter-options-content">
+               <ul></ul>
+            </div>
+            <div class="clear"></div>
+            <div><a class="eduLink" data-class="eduHtml" data-target="#sapphire_color_intensity_education" data-toggle="modal" style="cursor: pointer;">Learn more about Color Intensity </a></div>
+         </div>
+         <div class="filter-options-item clarity" style="display:none" data-filter-for="clarity">
+            <div data-role="content" class="filter-options-content">
+               <ul><span class="mobifilter_title">Clarity<a class="eduLink" data-class="eduHtml" data-target="#sapphire_clarity_education" data-toggle="modal" style="cursor: pointer;"><img src="https://www.gemsny.com/images/help-icon.png" data-class="eduHtml" style="margin-top: 3px;margin-left: 3px;" class="vam" alt=""></a></span></ul>
+            </div>
+            <li class="filter-option" data-target="clarity" data="FL">
+               <label for="FL" style="cursor:pointer">
+                  <div class="checkbox-container" data-target="clarity"><input data-target="clarity" type="checkbox" v="FL" data="FL" id="FL" value="FL">
+               <label for="FL" data-target="clarity" class="new-checkbox" data="FL"></label></div><label for="FL" data="FL" data-target="clarity" class="filter-option-name">FL</label></label>
+            </li>
+            <li class="filter-option" data-target="clarity" data="VVS1">
+               <label for="VVS1" style="cursor:pointer">
+                  <div class="checkbox-container" data-target="clarity"><input data-target="clarity" type="checkbox" v="VVS1" data="VVS1" id="VVS1" value="VVS1">
+               <label for="VVS1" data-target="clarity" class="new-checkbox" data="VVS1"></label></div><label for="VVS1" data="VVS1" data-target="clarity" class="filter-option-name">VVS1</label></label>
+            </li>
+            <li class="filter-option" data-target="clarity" data="VVS2">
+               <label for="VVS2" style="cursor:pointer">
+                  <div class="checkbox-container" data-target="clarity"><input data-target="clarity" type="checkbox" v="VVS2" data="VVS2" id="VVS2" value="VVS2">
+               <label for="VVS2" data-target="clarity" class="new-checkbox" data="VVS2"></label></div><label for="VVS2" data="VVS2" data-target="clarity" class="filter-option-name">VVS2</label></label>
+            </li>
+            <li class="filter-option" data-target="clarity" data="VS1">
+               <label for="VS1" style="cursor:pointer">
+                  <div class="checkbox-container" data-target="clarity"><input data-target="clarity" type="checkbox" v="VS1" data="VS1" id="VS1" value="VS1">
+               <label for="VS1" data-target="clarity" class="new-checkbox" data="VS1"></label></div><label for="VS1" data="VS1" data-target="clarity" class="filter-option-name">VS1</label></label>
+            </li>
+            <li class="filter-option" data-target="clarity" data="VS2">
+               <label for="VS2" style="cursor:pointer">
+                  <div class="checkbox-container" data-target="clarity"><input data-target="clarity" type="checkbox" v="VS2" data="VS2" id="VS2" value="VS2">
+               <label for="VS2" data-target="clarity" class="new-checkbox" data="VS2"></label></div><label for="VS2" data="VS2" data-target="clarity" class="filter-option-name">VS2</label></label>
+            </li>
+            <li class="filter-option" data-target="clarity" data="SI1">
+               <label for="SI1" style="cursor:pointer">
+                  <div class="checkbox-container" data-target="clarity"><input data-target="clarity" type="checkbox" v="SI1" data="SI1" id="SI1" value="SI1">
+               <label for="SI1" data-target="clarity" class="new-checkbox" data="SI1"></label></div><label for="SI1" data="SI1" data-target="clarity" class="filter-option-name">SI1</label></label>
+            </li>
+            <li class="filter-option" data-target="clarity" data="SI2">
+               <label for="SI2" style="cursor:pointer">
+                  <div class="checkbox-container" data-target="clarity"><input data-target="clarity" type="checkbox" v="SI2" data="SI2" id="SI2" value="SI2">
+               <label for="SI2" data-target="clarity" class="new-checkbox" data="SI2"></label></div><label for="SI2" data="SI2" data-target="clarity" class="filter-option-name">SI2</label></label>
+            </li>
+            <div class="clear"></div>
+            <div><a class="eduLink" data-class="eduHtml" data-target="#sapphire_clarity_education" data-toggle="modal" style="cursor: pointer;">Learn more about Eye Clarity </a></div>
+         </div>
+         <div class="filter-options-item transparency" style="display:none" data-filter-for="transparency">
+            <div data-role="content" class="filter-options-content">
+               <ul>
+                  <span class="mobifilter_title">Transparency</span>
+                  <li class="filter-option" data-target="transparency" data="Excellent">
+                     <label for="Excellent" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="transparency"><input data-target="transparency" v="Excellent" data="Excellent" type="checkbox" id="Excellent" value="Excellent">
+                     <label for="Excellent" data-target="transparency" class="new-checkbox" data="Excellent"></label></div><label for="Excellent" data="Excellent" data-target="transparency" class="filter-option-name">Excellent</label></label>
+                  </li>
+                  <li class="filter-option" data-target="transparency" data="Very Good">
+                     <label for="Very Good" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="transparency"><input data-target="transparency" v="Very Good" data="Very Good" type="checkbox" id="Very Good" value="Very Good">
+                     <label for="Very Good" data-target="transparency" class="new-checkbox" data="Very Good"></label></div><label for="Very Good" data="Very Good" data-target="transparency" class="filter-option-name">Very Good</label></label>
+                  </li>
+                  <li class="filter-option" data-target="transparency" data="Good">
+                     <label for="Good" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="transparency"><input data-target="transparency" v="Good" data="Good" type="checkbox" id="Good" value="Good">
+                     <label for="Good" data-target="transparency" class="new-checkbox" data="Good"></label></div><label for="Good" data="Good" data-target="transparency" class="filter-option-name">Good</label></label>
+                  </li>
+                  <li class="filter-option" data-target="transparency" data="Fair">
+                     <label for="Fair" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="transparency"><input data-target="transparency" v="Fair" data="Fair" type="checkbox" id="Fair" value="Fair">
+                     <label for="Fair" data-target="transparency" class="new-checkbox" data="Fair"></label></div><label for="Fair" data="Fair" data-target="transparency" class="filter-option-name">Fair</label></label>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="filter-options-item certificate" style="display:none" data-filter-for="certificate">
+            <div data-role="content" class="filter-options-content">
+               <ul>
+                  <span class="mobifilter_title">Certificate</span>
+                  <li class="filter-option" data-target="certificate" data="GIA">
+                     <label for="GIA" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="certificate"><input data-target="certificate" v="GIA" data="GIA" type="checkbox" id="GIA" value="GIA">
+                     <label for="GIA" data-target="certificate" class="new-checkbox" data="GIA"></label></div><label for="GIA" data="GIA" data-target="certificate" class="filter-option-name">GIA</label></label>
+                  </li>
+                  <li class="filter-option" data-target="certificate" data="AGL">
+                     <label for="AGL" style="cursor:pointer">
+                        <div class="checkbox-container" data-target="certificate"><input data-target="certificate" v="AGL" data="AGL" type="checkbox" id="AGL" value="AGL">
+                     <label for="AGL" data-target="certificate" class="new-checkbox" data="AGL"></label></div><label for="AGL" data="AGL" data-target="certificate" class="filter-option-name">AGL</label></label>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="filter-options-item length" style="display:none" data-filter-for="length">
+            <div data-role="content" class="filter-options-content">
+               <span class="mobifilter_title">Length</span>
+               <div class="select-choose__list priceslide" style="display:inline-block;position:relative;height:auto;">
+                  <div class="select-choose__item serch-input pb5">
+                     <input class="left tac prize-control" size="8" type="text" pattern="[0-9]+[,]+[.]" name="dminlength" id="dminlength" value="3.5" onchange="scrollSlider(event,'length');"><input class="right tac prize-control" size="8" type="text" pattern="[0-9]+[,]+[.]" name="dmaxlength" id="dmaxlength" value="50" onchange="scrollSlider(event,'length');"><input type="hidden" name="length_low" id="length_low" value="3.5"><input type="hidden" name="min_length" id="min_length" value="3.5" disabled="disabled"><input type="hidden" name="length_high" id="length_high" value="50"><input type="hidden" name="max_length" id="max_length" value="50" disabled="disabled">
+                     <div class="catinner">
+                        <div class="slider-corner">
+                           <div id="slider-length-range" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                              <div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div>
+                              <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;"></span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="filter-options-item width" style="display:none" data-filter-for="width">
+            <div data-role="content" class="filter-options-content">
+               <span class="mobifilter_title">Width</span>
+               <div class="select-choose__list priceslide" style="display:inline-block;position:relative;height:auto;">
+                  <div class="select-choose__item serch-input pb5">
+                     <input class="left tac prize-control" size="8" type="text" pattern="[0-9]+[,]+[.]" name="dminwidth" id="dminwidth" value="2.5" onchange="scrollSlider(event,'width');"><input class="right tac prize-control" size="8" type="text" pattern="[0-9]+[,]+[.]" name="dmaxwidth" id="dmaxwidth" value="25" onchange="scrollSlider(event,'width');"><input type="hidden" name="width_low" id="width_low" value="2.5"><input type="hidden" name="min_width" id="min_width" value="2.5" disabled="disabled"><input type="hidden" name="width_high" id="width_high" value="25"><input type="hidden" name="max_width" id="max_width" value="25" disabled="disabled">
+                     <div class="catinner">
+                        <div class="slider-corner">
+                           <div id="slider-width-range" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                              <div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div>
+                              <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;"></span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="filter-options-item lwr" style="display:none" data-filter-for="lwr">
+            <div data-role="content" class="filter-options-content">
+               <span class="mobifilter_title">L/W Ratio</span>
+               <div class="select-choose__list priceslide" style="display:inline-block;position:relative;height:auto;">
+                  <div class="select-choose__item serch-input pb5">
+                     <input class="left tac prize-control" size="8" type="text" pattern="[0-9]+[,]+[.]" name="dminlwr" id="dminlwr" value="0.75" onchange="scrollSlider(event,'lwr');"><input class="right tac prize-control" size="8" type="text" pattern="[0-9]+[,]+[.]" name="dmaxlwr" id="dmaxlwr" value="2.6" onchange="scrollSlider(event,'lwr');"><input type="hidden" name="lwr_low" id="lwr_low" value="0.75"><input type="hidden" name="min_lwr" id="min_lwr" value="0.75" disabled="disabled"><input type="hidden" name="lwr_high" id="lwr_high" value="2.6"><input type="hidden" name="max_lwr" id="max_lwr" value="2.6" disabled="disabled">
+                     <div class="catinner">
+                        <div class="slider-corner">
+                           <div id="slider-lwr-range" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                              <div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div>
+                              <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;"></span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+</ng-container>
+<app-alert  *ngIf="popup.status" [message]="popup.message" (close)="onClose()"></app-alert>

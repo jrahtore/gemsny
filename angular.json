@@ -24,7 +24,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+
+              "src/styles.css",
+              "src/assets/style/combine.css",
+              "src/assets/style/responsive.css",
+              "src/assets/style/search-filters.css",
+              "src/assets/style/media.css"
+
+              
             ],
             "scripts": []
           },

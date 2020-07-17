@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\desktop",
+    "\\src\\app\\desktop\\stone",
+    "\\src\\app\\desktop\\stone\\stone-result",
+    "\\src\\app\\desktop\\stone\\stone-result\\stone-result-d",
+    "\\src\\app\\main",
+    "\\src\\app\\main\\stone",
+    "\\src\\app\\main\\stone\\stone-result",
+    "\\src\\app\\main\\stone\\stone-result\\stone-filter-item"
+  ],
+  "SelectedNode": "\\src\\app\\main\\stone\\stone-result\\stone-result.component.ts",
+  "PreviewInSolutionExplorer": false
+}

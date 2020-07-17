@@ -1,0 +1,34 @@
+
+<div data-role="content" class="filter-options-content" [hidden]="currentItem!=selected" *ngIf="!filter.isSlider">
+  <ul>
+    <span class="mobifilter_title">{{filter.name}}</span>
+    <li  *ngFor="let vv of filter.vals; index as i" class="filter-option" >
+      <label for="{{vv}}" style="cursor:pointer">
+        <div class="checkbox-container">
+          <input  type="checkbox" [checked]="checkedItems.indexOf(filter.id+'_'+vv) > -1" (click)="addFilterByUser(filter.id,vv,vv,false,$event.target)"  id="{{vv}}" value="{{vv}}">
+          <label for="{{vv}}"  class="new-checkbox"></label>
+        </div><label for="{{vv}}" class="filter-option-name">{{vv}}</label>
+      </label>
+    </li>
+
+  </ul>
+</div>
+<div data-role="content" class="filter-options-content" [hidden]="currentItem!=selected" *ngIf="filter.isSlider">
+  <ul>
+    <span class="mobifilter_title">{{filter.name}}</span>
+    <li *ngFor="let vv of filter.vals; index as i" class="filter-option"  >
+      <label for="{{vv}}" style="cursor:pointer">
+        <div class="">
+          <div class="">
+            <div class="custom-slider">
+              <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [(options)]="options"></ng5-slider>
+            </div>
+
+          </div>
+        </div>
+      </label>
+    </li>
+
+  </ul>
+</div>
+

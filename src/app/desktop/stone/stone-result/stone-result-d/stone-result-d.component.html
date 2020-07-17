@@ -1,0 +1,157 @@
+<ng-container *ngIf="isDesktop">
+<div id="desk_results_panel" #boundary>
+  <h1 class="mobile-title maketitle col-md-8 col-sm-8 col-xs-12" style="padding-bottom:0px;padding-top:5px">Sapphire Search <span class="visible-xs nocount">(<span id="total_count_mob">{{ stoneResultModel.length }}</span> Results)</span></h1>
+  <div class="whatsize col-md-4 col-sm-4 col-xs-12">What size gem? <a href="https://www.gemsny.com/compare-stone/" target="_blank">View our stone size tool</a></div>
+  <div class="filtersticky " [ngClass]="(isSticky)?'sticky':''" id="filter-desktop-sticky" >
+    <div class="filterwrapper col-xs-12" id="filter-desktop" *ngIf="hideFilters">
+      
+      <a class="hidefilter">Filters</a>
+      <span (clickOutside)="cancel()"  >
+        <app-loading-spinner *ngIf="loadingFilter" class="col-md-12" style="left:45%"></app-loading-spinner>
+    <app-stone-filter-item *ngFor="let filterC of filterArr; let i = index" [filter]="filterC" [currentItem]="i" [filterByUserModelSub]="filterByuser" [(childPopup)]="popup"   (current)="openMenuMain($event)" (filterByUserModelSubChange)="addFilterByUser($event)" ></app-stone-filter-item>
+        </span>
+     
+    </div>
+    <div class="col-xs-12 filterresult"  *ngIf="filterByUserArr.length>0 && hideFilters">
+       <span class="clear-filter" (click)="deleteAllFilterByUser()" style="color:#FF0000;cursor:pointer">Clear Filters</span>
+      <span  *ngFor="let fi of filterByUserArr ; let i = index">{{fi.title}}<a class="newsprite" title="Close" (click)="deleteFilterByUser(i)"></a></span>
+     
+    </div>
+    
+      <div class=" col-xs-12" >
+        <div class="resulttab">
+          <a href="javascript:;" id="result_tab" title="Result" class="col-xs-6 active result_link">Result (<span id="">{{ stoneResultModel.length }}</span>)</a>
+
+        </div>
+      </div>
+
+      <div class=" col-xs-12">
+        <div class="tab-content newresultsorting  tab-cont">
+          <div class="tab-pane active">
+            <div class="row">
+              <div class="flex-container-top hidden-xs">
+                <div class="pricesorting">
+                  <div class="select-auto">
+                    <div class="gray-select">
+                      <select class="select1" id="bottom_sortby" name="bottom_sortby" sb="46558239" style="display: none;">
+                        <option value="PLTH">Price Low to High</option>
+                        <option value="PHTL">Price High to Low</option>
+                        <option value="WLTH">Weight Low to High</option>
+                        <option value="WHTL">Weight High to Low</option>
+                      </select>
+                      <div id="sbHolder_46558239" class="sbHolder">
+                        <a id="sbToggle_46558239" href="#" class="sbToggle"></a>
+                        <a id="sbSelector_46558239" href="#" class="sbSelector">Price Low to High</a>
+                        <ul id="sbOptions_46558239" class="sbOptions" style="display: none;">
+                          <li><a href="#PLTH" rel="PLTH" class="sbFocus">Price Low to High</a></li>
+                          <li><a href="#PHTL" rel="PHTL">Price High to Low</a></li>
+                          <li><a href="#WLTH" rel="WLTH">Weight Low to High</a></li>
+                          <li><a href="#WHTL" rel="WHTL">Weight High to Low</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="listgridview">
+                  <div class="view-option">
+                    <a view="list" class=" listtab" [ngClass]="listView?'active':''" (click)="listView=true;" title="List View">List<br>View <i class="newsprite listicon"></i></a>
+                    <a view="gallery" class="gridtab" (click)="listView=false;" [ngClass]="!listView?'active':''" title="Gallery View">Gallery<br>View <i class="newsprite gridicon"></i></a>
+                  </div>
+                </div>
+                <div class="newbtnwrap hideshowfilter_btnwrap">
+                  <a href="javascript:;" (click)="hideFilters = !hideFilters" class="button" [ngClass]="(!hideFilters)?'showbtn':''">{{hideFilters == false ? 'Show' : 'Hide'}} Filters</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    
+  </div>
+
+
+  <div class="col-xs-12 listresultwrap" *ngIf="listView" >
+    <div class="listresult_table" style="display: block;">
+      <table cellpadding="0" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            
+            <th>Image/Video</th>
+            <th>Item #</th>
+            <th>Sale Price</th>
+            <th> <a data-target="#sapphire_caratweight_education" data-toggle="modal" style="cursor: pointer">Weight &nbsp;<img src="https://www.gemsny.com/images/help-icon.png" class="vam" alt=""></a></th>
+            <th> <a style="cursor: pointer" data-target="#sapphire_dimensions_education" data-toggle="modal">Dimensions &nbsp;<img src="https://www.gemsny.com/images/help-icon.png" class="vam" alt=""></a></th>
+            <th>Shape</th>
+            <th> <a style="cursor: pointer" data-target="#sapphire_color_intensity_education" data-toggle="modal">Color<br />Intensity &nbsp;<img src="https://www.gemsny.com/images/help-icon.png" class="vam" alt=""></a></th>
+            <th> <a style="cursor: pointer" data-target="#sapphire_clarity_education" data-toggle="modal">Eye<br>Clarity &nbsp;<img src="https://www.gemsny.com/images/help-icon.png" class="vam" alt=""></a></th>
+            <th>Transparency</th>
+            <th> <a style="cursor: pointer" data-target="#sapphire_enhancement_education" data-toggle="modal">Enhancement &nbsp;<img src="https://www.gemsny.com/images/help-icon.png" class="vam" alt=""></a></th>
+            <th>Origin</th>
+            <th>Lab</th>
+          </tr>
+        </thead>
+
+        <tbody id="SearchResultOutput">
+          <tr app-stone-list-item *ngFor="let res of stoneResultModel"
+              [stoneResult]="res"
+              [routerLink]="[res.url]" ></tr>
+        
+        </tbody>
+        <tbody id="CompareOutput" style="display:none;">
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+
+
+
+  <div class="gridresultwrap mobi_gridresult" *ngIf="!listView">
+    <ul id="SearchResultgridOutput">
+       <app-loading-spinner *ngIf="loadingResult" class="col-md-12" style="left:45%"></app-loading-spinner>
+      <ul id="gridResult">
+        <app-stone-grid-item  *ngFor="let res of stoneResultModel"
+                             [stoneResult]="res"
+                             ></app-stone-grid-item>
+    </ul>
+     
+
+    </ul>
+  </div>
+
+
+
+</div>
+
+
+    <div class="filter-sort">
+    <div class="options sort-box compare-hide">
+        <i style="color: #53377a;font-size:18px" class="fa fa-sort sort-icon"></i> Sort
+        <div class="sort-options">
+            <div class="toolbar-sorter sorter">
+                <select id="sorter" class="sorter-options omniture-sorting-select-mob">
+                    <option value="PLTH">Price Low to High</option>
+                    <option value="PHTL">Price High to Low</option>
+                    <option value="WLTH">Weight Low to High</option>
+                    <option value="WHTL">Weight High to Low</option>
+                </select>
+                <a href="#" class="action sorter-action sort-asc"><span>Set Descending Direction</span></a></div>
+        </div>
+    </div>    
+    <div class="options sort-box" style="display: none;" id="result_tab_mob">
+        <i style="color: #53377a;font-size:18px" class="newsprite resulticon" aria-hidden="true"></i>Result
+    </div>
+
+    <div class="options sort-box compareicon_mobile compareSectionActive" id="comapre_tab_mob">
+        <i style="color: #53377a;font-size:18px" class="newsprite" aria-hidden="true"></i>Compare <span class="purple-text">(<span id="mob_res_comp">0</span>)</span>
+    </div>
+    <div class="options filter-box compare-hide">
+        <i style="color: #53377a;font-size:18px" class="fa fa-filter" aria-hidden="true"></i>Filters
+    </div>
+    </div>
+
+  </ng-container>
+
+
+<app-alert  *ngIf="popup.status" [message]="popup.message" (close)="onClose()"></app-alert>

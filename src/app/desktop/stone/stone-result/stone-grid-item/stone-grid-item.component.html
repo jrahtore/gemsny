@@ -1,0 +1,36 @@
+    <li class="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb15" id="02709">
+          <div class="gridcard" (click)="redirectUrl(stoneResult.url)" style="cursor:pointer" >
+          
+            <div class="proimg" id="02709img">
+              <img src="{{environment.imageUrl}}images-stones/{{stoneResult.img}}/FL.jpg">
+            </div>
+            <a href="#" class="view360" title="360 View"><i class="newsprite"></i></a>
+            <div class="otherdescrip">
+              <span class="price">{{stoneResult.price}}</span>
+              <div class="clear"></div>
+              <span class="itemno">Item#: {{stoneResult.vsku}}</span>
+              <span class="caret">Weight: {{stoneResult.wt}}cts.</span>
+            </div>
+            <div class="viewdetailbtm">
+              <a href="https://www.gemsny.com/sapphires/0.48-Carat-Cushion-sapphire-PS75200CU/?sku=02709&amp;type=" class="button2" sku="02709" title="View Details">View Details</a>
+            </div>
+            <div class="viewdetailbtm quickviewbtn" >
+              <a class="no_detail" href="javascript:void(0);">Quick View</a>
+              <div class="hoverdiv">
+               <div class="datatooltip bounce">
+                 <div class="prodescrip">Item Description</div>
+                 <div class="descripwrap">
+                    <div class="descrip-row"><span class="elemnt">Shape :</span><span class="value">{{stoneResult.vshapes}}</span></div>
+                    <div class="descrip-row"><span class="elemnt">Dimensions (mm) :</span><span class="value">{{stoneResult.dim}}</span></div>
+                    <div class="descrip-row"><span class="elemnt">Color Intensity :</span><span class="value">{{stoneResult.ci}}</span></div>
+                    <div class="descrip-row"><span class="elemnt">Eye Clarity :</span><span class="value">{{stoneResult.cla}}</span></div>
+                    <div class="descrip-row"><span class="elemnt">Transparency :</span><span class="value">{{stoneResult.tns}}</span></div>
+                    <div class="descrip-row"><span class="elemnt">Enhancement :</span><span class="value">{{stoneResult.enh}}</span></div>
+                    <div class="descrip-row"><span class="elemnt">Origin : </span><span class="value">{{stoneResult.ori}}</span></div>
+                    <div class="descrip-row"><span class="elemnt">Lab Reports : </span><span class="value">{{stoneResult.certificate}}</span></div>
+                 </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </li>
